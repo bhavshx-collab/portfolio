@@ -1,0 +1,96 @@
+/* ============================================================
+   NEURAL ORBIT — 3D SCENE CONTAINER
+   ============================================================ */
+
+.neural-orbit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Allow mouse events but not text selection blocking */
+  pointer-events: auto;
+  cursor: crosshair;
+  user-select: none;
+}
+
+.neural-orbit canvas,
+.neural-orbit__canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ─── CSS Fallback (no WebGL) ─────────────────────────── */
+
+.neural-orbit__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.neural-orbit__fallback-rings {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.neural-orbit__fallback-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  animation: orbit-spin linear infinite;
+}
+
+.neural-orbit__fallback-ring--1 {
+  border-color: rgba(108, 140, 255, 0.2);
+  animation-duration: 8s;
+  margin: 20px;
+}
+
+.neural-orbit__fallback-ring--2 {
+  border-color: rgba(167, 139, 250, 0.15);
+  animation-duration: 12s;
+  animation-direction: reverse;
+  margin: 50px;
+}
+
+.neural-orbit__fallback-ring--3 {
+  border-color: rgba(56, 189, 248, 0.1);
+  animation-duration: 18s;
+  margin: 80px;
+}
+
+.neural-orbit__fallback-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #6c8cff, #a78bfa 70%);
+  box-shadow: 0 0 30px rgba(108, 140, 255, 0.5), 0 0 60px rgba(167, 139, 250, 0.25);
+  animation: core-pulse 3s ease-in-out infinite;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes core-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);    box-shadow: 0 0 30px rgba(108,140,255,0.5), 0 0 60px rgba(167,139,250,0.25); }
+  50%       { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 50px rgba(108,140,255,0.7), 0 0 90px rgba(167,139,250,0.4); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .neural-orbit__fallback-ring,
+  .neural-orbit__fallback-core {
+    animation: none;
+  }
+}

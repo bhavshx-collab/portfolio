@@ -1,0 +1,324 @@
+/* ============================================================
+   HERO STYLES — with Neural Orbit 3D
+   ============================================================ */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  padding-top: 6rem;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Container */
+.hero__container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+
+/* ---------- Left: Content ---------- */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 600px;
+}
+
+/* Eyebrow */
+.hero__eyebrow {
+  display: inline-flex;
+}
+
+.hero__eyebrow-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.9rem;
+  background: rgba(108, 140, 255, 0.08);
+  border: 1px solid rgba(108, 140, 255, 0.2);
+  border-radius: 999px;
+  color: var(--accent-blue);
+}
+
+.hero__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+}
+
+.hero__cursor {
+  display: inline-block;
+  width: 1px;
+  height: 0.8em;
+  background: var(--accent-blue);
+  margin-left: 1px;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Headline */
+.hero__headline {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+/* Subtext */
+.hero__subtext {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  color: var(--text-secondary);
+  line-height: 1.75;
+  max-width: 500px;
+}
+
+/* CTAs */
+.hero__ctas {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hero__cta-primary {
+  padding: 0.85rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.hero__cta-secondary {
+  padding: 0.85rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Metadata strip */
+.hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.hero__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.hero__meta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hero__meta-dot--blue   { background: var(--accent-blue); }
+.hero__meta-dot--violet { background: var(--accent-violet); }
+
+.hero__meta-sep {
+  width: 1px;
+  height: 1rem;
+  background: var(--border-subtle);
+}
+
+/* ---------- Right: 3D Visual ---------- */
+.hero__visual {
+  position: relative;
+  height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Allow 3D pointer events, but don't block text layer behind */
+  isolation: isolate;
+}
+
+/* Canvas wrapper — fills the visual column */
+.hero__canvas-wrapper {
+  position: absolute;
+  inset: -40px; /* extend slightly beyond column for generous 3D scene space */
+  pointer-events: auto;
+}
+
+/* Placeholder shown while Three.js lazy-loads */
+.hero__canvas-placeholder {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(108, 140, 255, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+/* Floating cards on visual — sit on top of the 3D */
+.hero__float-card {
+  position: absolute;
+  background: rgba(14, 17, 26, 0.88);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  min-width: 150px;
+  z-index: 2;
+  pointer-events: none; /* don't steal clicks from 3D */
+}
+
+.hero__float-card--top {
+  top: 8%;
+  right: -1rem;
+  animation: float-card-a 4s ease-in-out infinite;
+}
+
+.hero__float-card--bottom {
+  bottom: 12%;
+  left: -1rem;
+  animation: float-card-b 5s ease-in-out infinite;
+}
+
+.hero__float-card--grad {
+  top: 38%;
+  right: -2rem;
+  min-width: 90px;
+  animation: float-card-a 6s ease-in-out infinite reverse;
+}
+
+@keyframes float-card-a {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes float-card-b {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__float-card { animation: none; }
+}
+
+.hero__float-card-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+}
+
+.hero__float-card-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+/* ---------- Scroll Indicator ---------- */
+.hero__scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+  z-index: 10;
+}
+
+.hero__scroll-indicator:hover {
+  opacity: 0.9;
+}
+
+.hero__scroll-text {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.hero__scroll-arrow {
+  color: var(--text-muted);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .hero__container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 2rem;
+  }
+
+  .hero__visual {
+    height: 380px;
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero__canvas-wrapper {
+    inset: -20px;
+  }
+
+  .hero__headline {
+    font-size: clamp(2.2rem, 7vw, 3.2rem);
+  }
+
+  .hero__float-card--top  { right: 0; }
+  .hero__float-card--grad { right: 0; }
+  .hero__float-card--bottom { left: 0; }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 5rem;
+  }
+
+  .hero__container {
+    gap: 0;
+    padding-bottom: 4rem;
+  }
+
+  .hero__visual {
+    height: 280px;
+  }
+
+  .hero__canvas-wrapper {
+    inset: -10px;
+  }
+
+  .hero__ctas {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__float-card--top    { right: -0.25rem; top: 5%; }
+  .hero__float-card--bottom { left: -0.25rem;  bottom: 8%; }
+  .hero__float-card--grad   { display: none; }
+}
