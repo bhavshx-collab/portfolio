@@ -1,5 +1,2 @@
-/// <reference types="@react-three/fiber" />
-
-// Ensure @react-three/fiber augments the global React JSX namespace
-// so that Three.js intrinsic elements (mesh, group, points, etc.)
-// are recognized by TypeScript in .tsx files.
+// Three.js is used directly via the three package (pure imperative API).
+// No React Three Fiber JSX intrinsics are needed.
